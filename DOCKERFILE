@@ -1,0 +1,37 @@
+# Use the Ubuntu 18.04 as the base image
+FROM ubuntu:18.04
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Install dependencies and Ruby 1.9.1
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    libssl1.0-dev \
+    zlib1g-dev \
+    libreadline-dev \
+    libyaml-dev \
+    libsqlite3-dev \
+    sqlite3 \
+    libxml2-dev \
+    libxslt1-dev \
+    libcurl4-openssl-dev \
+    software-properties-common \
+    && apt-get clean
+
+RUN curl -O http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.1-p431.tar.gz && \
+    tar -xzf ruby-1.9.1-p431.tar.gz && \
+    cd ruby-1.9.1-p431 && \
+    ./configure && \
+    make && \
+    make install
+
+# Expose port 7777
+EXPOSE 7777
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Run the install_gem.sh script
+RUN /app/install_gem.sh
