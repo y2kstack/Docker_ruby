@@ -18,7 +18,11 @@ RUN apt-get update && apt-get install -y \
     libxslt1-dev \
     libcurl4-openssl-dev \
     software-properties-common \
+    tzdata \
     && apt-get clean
+
+# Set the timezone to UTC
+ENV TZ=UTC
 
 RUN curl -O http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.1-p431.tar.gz && \
     tar -xzf ruby-1.9.1-p431.tar.gz && \
