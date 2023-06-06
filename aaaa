@@ -1,0 +1,14 @@
+# Install GPG key
+RUN gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys D39DC0E3
+
+# Install RVM (Ruby Version Manager)
+RUN \curl -sSL https://get.rvm.io | bash -s stable
+
+# Load RVM
+RUN echo "source /etc/profile.d/rvm.sh" >> /etc/bash.bashrc
+
+# Install Ruby 1.9.3 using RVM
+RUN /bin/bash -l -c "rvm install 1.9.3"
+
+# Set the default Ruby version to 1.9.3
+RUN /bin/bash -l -c "rvm use 1.9.3 --default"
